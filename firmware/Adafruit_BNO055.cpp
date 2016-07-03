@@ -566,7 +566,7 @@ bool Adafruit_BNO055::isFullyCalibrated(void)
 bool Adafruit_BNO055::write8(adafruit_bno055_reg_t reg, byte value)
 {
   Wire.beginTransmission(_address);
-  #if ARDUINO >= 100
+  #if ARDUINO >= 100 || defined(SPARK)
     Wire.write((uint8_t)reg);
     Wire.write((uint8_t)value);
   #else
@@ -589,14 +589,14 @@ byte Adafruit_BNO055::read8(adafruit_bno055_reg_t reg )
   byte value = 0;
 
   Wire.beginTransmission(_address);
-  #if ARDUINO >= 100
+  #if ARDUINO >= 100 || defined(SPARK)
     Wire.write((uint8_t)reg);
   #else
     Wire.send(reg);
   #endif
   Wire.endTransmission();
   Wire.requestFrom(_address, (byte)1);
-  #if ARDUINO >= 100
+  #if ARDUINO >= 100 || defined(SPARK)
     value = Wire.read();
   #else
     value = Wire.receive();
@@ -613,7 +613,7 @@ byte Adafruit_BNO055::read8(adafruit_bno055_reg_t reg )
 bool Adafruit_BNO055::readLen(adafruit_bno055_reg_t reg, byte * buffer, uint8_t len)
 {
   Wire.beginTransmission(_address);
-  #if ARDUINO >= 100
+  #if ARDUINO >= 100 || defined(SPARK)
     Wire.write((uint8_t)reg);
   #else
     Wire.send(reg);
@@ -623,7 +623,7 @@ bool Adafruit_BNO055::readLen(adafruit_bno055_reg_t reg, byte * buffer, uint8_t 
 
   for (uint8_t i = 0; i < len; i++)
   {
-    #if ARDUINO >= 100
+    #if ARDUINO >= 100 || defined(SPARK)
       buffer[i] = Wire.read();
     #else
       buffer[i] = Wire.receive();
