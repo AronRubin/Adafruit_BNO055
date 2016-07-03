@@ -20,6 +20,9 @@
 #ifndef __ADAFRUIT_BNO055_H__
 #define __ADAFRUIT_BNO055_H__
 
+#if defined (SPARK)
+#include "application.h"
+#else
 #if (ARDUINO >= 100)
  #include "Arduino.h"
 #else
@@ -32,9 +35,10 @@
 #else
  #include <Wire.h>
 #endif
+#endif
 
-#include <Adafruit_Sensor.h>
-#include <utility/imumaths.h>
+#include <Adafruit_Sensor/Adafruit_Sensor.h>
+#include "utility/imumaths.h"
 
 #define BNO055_ADDRESS_A (0x28)
 #define BNO055_ADDRESS_B (0x29)
